@@ -1,1 +1,201 @@
+-- phpMyAdmin SQL Dump
+-- version 5.2.1
+-- https://www.phpmyadmin.net/
+--
+-- Servidor: 127.0.0.1
+-- Tiempo de generación: 20-06-2023 a las 17:49:53
+-- Versión del servidor: 10.4.28-MariaDB
+-- Versión de PHP: 8.2.4
+
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+START TRANSACTION;
+SET time_zone = "+00:00";
+
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8mb4 */;
+
+--
+-- Base de datos: `health_map`
+--
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `country`
+--
+
+CREATE TABLE `country` (
+  `country_id` int(11) NOT NULL,
+  `country_name` varchar(50) NOT NULL,
+  `country_code` varchar(20) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `country`
+--
+
+INSERT INTO `country` (`country_id`, `country_name`, `country_code`) VALUES
+(1, 'Afganistan', 'AFG'),
+(2, 'Angola', 'AGO'),
+(7, 'Mexico', 'MEX');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `data`
+--
+
+CREATE TABLE `data` (
+  `id_data` int(11) NOT NULL,
+  `indicador_code` varchar(50) NOT NULL,
+  `country_code` varchar(10) NOT NULL,
+  `year` varchar(100) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `data`
+--
+
+INSERT INTO `data` (`id_data`, `indicador_code`, `country_code`, `year`) VALUES
+(1, 'SR.UWT.TFR', 'AFG', '4902043679'),
+(2, 'SP.POP.TOT', 'AGO', '4902043678');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `healthindicador`
+--
+
+CREATE TABLE `healthindicador` (
+  `id` int(11) NOT NULL,
+  `indicador_code` varchar(50) NOT NULL,
+  `indicador_name` varchar(100) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `healthindicador`
+--
+
+INSERT INTO `healthindicador` (`id`, `indicador_code`, `indicador_name`) VALUES
+(1, 'SR.UWT.TFR', 'Unmet need for contraception'),
+(2, 'SP.POP.TOT', 'Population, total');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `healthindicadores`
+--
+
+CREATE TABLE `healthindicadores` (
+  `id_indicadores` int(11) NOT NULL,
+  `indicador_code` varchar(50) NOT NULL,
+  `indicador_name` varchar(50) NOT NULL,
+  `source_nota` varchar(1000) NOT NULL,
+  `source_organization` varchar(1000) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `healthindicadores`
+--
+
+INSERT INTO `healthindicadores` (`id_indicadores`, `indicador_code`, `indicador_name`, `source_nota`, `source_organization`) VALUES
+(1, 'SR.UWT.TFR', 'Unmet need for contraception', 'xxxxxxx', 'yyyyyy'),
+(2, 'SP.POP.TOT', 'Population, total', 'xxxxxx', 'yyyyy'),
+(9, 'SP.POP.R', 'Population Total', 'Femele that', 'Work Bank');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `usuario`
+--
+
+CREATE TABLE `usuario` (
+  `id_usuario` int(11) NOT NULL,
+  `nombre` varchar(50) NOT NULL,
+  `clave` varchar(50) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `usuario`
+--
+
+INSERT INTO `usuario` (`id_usuario`, `nombre`, `clave`) VALUES
+(1, 'Administrador', 'dinora'),
+(2, 'Analista', 'lucia');
+
+--
+-- Índices para tablas volcadas
+--
+
+--
+-- Indices de la tabla `country`
+--
+ALTER TABLE `country`
+  ADD PRIMARY KEY (`country_id`);
+
+--
+-- Indices de la tabla `data`
+--
+ALTER TABLE `data`
+  ADD PRIMARY KEY (`id_data`);
+
+--
+-- Indices de la tabla `healthindicador`
+--
+ALTER TABLE `healthindicador`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indices de la tabla `healthindicadores`
+--
+ALTER TABLE `healthindicadores`
+  ADD PRIMARY KEY (`id_indicadores`);
+
+--
+-- Indices de la tabla `usuario`
+--
+ALTER TABLE `usuario`
+  ADD PRIMARY KEY (`id_usuario`);
+
+--
+-- AUTO_INCREMENT de las tablas volcadas
+--
+
+--
+-- AUTO_INCREMENT de la tabla `country`
+--
+ALTER TABLE `country`
+  MODIFY `country_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+
+--
+-- AUTO_INCREMENT de la tabla `data`
+--
+ALTER TABLE `data`
+  MODIFY `id_data` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
+-- AUTO_INCREMENT de la tabla `healthindicador`
+--
+ALTER TABLE `healthindicador`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT de la tabla `healthindicadores`
+--
+ALTER TABLE `healthindicadores`
+  MODIFY `id_indicadores` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+
+--
+-- AUTO_INCREMENT de la tabla `usuario`
+--
+ALTER TABLE `usuario`
+  MODIFY `id_usuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+COMMIT;
+
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 
