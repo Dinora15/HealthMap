@@ -41,7 +41,7 @@ HttpSession sesion = request.getSession(true);
 			// Add HealthIndicator
 			String dataIndicadorcode = request.getParameter("indicadorcode");
 			String datacountrycode = request.getParameter("countrycode");
-			String datayear = request.getParameter("year");
+			int datayear = Integer.parseInt(request.getParameter("year"));
 			
 			
 			Data newdata = new Data(); 
@@ -57,7 +57,7 @@ HttpSession sesion = request.getSession(true);
 			
 			String actualizardataIndicadorcode = request.getParameter("actualizarindicadorcode");
 		    String actualizardataCountrycode = request.getParameter("actualizarcountrycode");
-		    String actualizardatayear = request.getParameter("actualizaryear");
+		    int actualizardatayear = Integer.parseInt(request.getParameter("actualizaryear"));
 		    
 		    
 	        Data actualizarData = new Data(); 
@@ -71,10 +71,16 @@ HttpSession sesion = request.getSession(true);
 		
 		} else if ("Eliminar".equals(request.getParameter("Eliminar_Data"))) {
 			//Delete
-			String gi = request.getParameter("eliminar");
-		    System.out.print("button value"+ " " +gi);
-	       
-		    dataDbd.deleteData(gi, gi, gi);
+			//String gi = request.getParameter("eliminar");
+		    //System.out.print("button value"+ " " +gi);
+
+		    //dataDbd.deleteData(gi, gi, gi);
+
+			String indicador = request.getParameter("eliminarIndicador");
+			String country = request.getParameter("eliminarCountry");
+			int year = Integer.parseInt(request.getParameter("eliminarYear"));
+
+			dataDbd.deleteData(indicador, country, year);
 		
 		}
 		 
