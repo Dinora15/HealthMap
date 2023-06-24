@@ -67,7 +67,7 @@ public class Conector {
     private static void importDataFromExcel(Connection connection) {
         try {
             // Read the Excel file
-            InputStream inputStream = Conector.class.getClassLoader().getResourceAsStream("data.xlsx");
+            InputStream inputStream = Conector.class.getClassLoader().getResourceAsStream("data1.xlsx");
             Workbook workbook = new XSSFWorkbook(inputStream);
             Sheet sheet = workbook.getSheetAt(0); // Assuming the data is in the first sheet
 
@@ -127,7 +127,7 @@ public class Conector {
                 }
 
 
-                for (int colNum = 6; colNum < numColumns; colNum++) {
+                for (int colNum = 4; colNum < numColumns; colNum++) {
                     Cell cell = row.getCell(colNum);
                     String year = headerRow.getCell(colNum).getStringCellValue();
                     String value = "";
