@@ -7,20 +7,29 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Properties;
+
+import javax.sql.DataSource;
+
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.net.URL;
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+
+import javax.annotation.Resource;
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
+
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
 
 
 public class Conector {
-
+	
+	//@Resource(name="java:/comp/env/jdbc/healthmap") //load resource file- context.xml
+    //private static DataSource datasource;  //Creating DataSource object
 	private static Connection connection = null;
-
 
     public static Connection getConnection() {
         if (connection != null)
@@ -29,9 +38,9 @@ public class Conector {
             try {
 
                 // Load the database properties
-                Properties properties = new Properties();
-                InputStream input = Conector.class.getClassLoader().getResourceAsStream("database.properties");
-
+                //Properties properties = new Properties();
+                //InputStream input = Conector.class.getClassLoader().getResourceAsStream("database.properties");
+            	/*
                 if(input != null) {
                     properties.load(input);
                     input.close();
@@ -42,22 +51,22 @@ public class Conector {
                 String url = properties.getProperty("database.url");
                 String user = properties.getProperty("database.user");
                 String password = properties.getProperty("database.password");
-
+				*/
                 // Load the MySQL driver
-                Class.forName("com.mysql.cj.jdbc.Driver");
-
+                //Class.forName("com.mysql.cj.jdbc.Driver");
+            	DataSource datasource=(DataSource)InitialContext.doLookup("java:/comp/env/jdbc/healthmap");	
                 // Connect to the database
-                connection = DriverManager.getConnection(url, user, password);
-
+                //connection = DriverManager.getConnection(url, user, password);
+            	connection = datasource.getConnection();
                 initializeDatabase(connection);  // Initialize the database
                 importDataFromExcel(connection); //Import data from Excel
 
-            } catch (ClassNotFoundException e) {
+            //} catch (ClassNotFoundException e) {
+              //  e.printStackTrace();
+            } catch (SQLException | NamingException e) {
                 e.printStackTrace();
-            } catch (SQLException e) {
-                e.printStackTrace();
-            } catch (IOException e) { // Catch IOException here
-                e.printStackTrace();
+           // } catch (IOException e) { // Catch IOException here
+             //   e.printStackTrace();
             }
             return connection;
         }
